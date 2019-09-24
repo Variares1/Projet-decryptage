@@ -1,4 +1,4 @@
-package model;
+package src.model;
 
 public class CAD {
     public /*DataSet*/void GetRows(String rq_sql, String resultSetName){
