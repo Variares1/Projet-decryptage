@@ -1,4 +1,4 @@
-package src.model;
+package model;
 
 public class Files {
     public String getData(String path){

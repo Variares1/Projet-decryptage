@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/BDD/BDD.iml" filepath="$PROJECT_DIR$/BDD/BDD.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Projet-decryptage.iml" filepath="$PROJECT_DIR$/Projet-decryptage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Projet-decryptage.iml" filepath="$PROJECT_DIR$/.idea/Projet-decryptage.iml" />
     </modules>
   </component>
 </project>

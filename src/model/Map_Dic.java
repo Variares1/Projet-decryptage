@@ -1,4 +1,4 @@
-package src.model;
+package model;
 
 public class Map_Dic {
     String selectWord (String word){
