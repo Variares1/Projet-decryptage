@@ -1,6 +1,11 @@
 package vue;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class frm_auth extends JFrame{
             private JPanel pan=new JPanel();
@@ -46,6 +51,35 @@ public class frm_auth extends JFrame{
                   pan.add(btn, BorderLayout.SOUTH);
                   this.setContentPane(pan);
                   this.setVisible(true);
+            }
+
+            public String getLogin(){
+                  return login.getText();
+            }
+            public String getPassword(){
+                  return password.getText();
+            }
+            public class BoutonListener implements ActionListener{
+                  @Override
+                  public void actionPerformed(ActionEvent actionEvent) {
+
+                  }
+            }
+
+            public static void connectionDB(){
+                  try{
+                        Class.forName("com.mysql.jdbc.Driver");
+
+                        String url="jdbc:mysql://localhost:3306/RPG";
+                        String user="rekiha";
+                        String pass="Ihgsv5358";
+
+                        Connection con= DriverManager.getConnection(url,user,pass);
+
+                        System.out.println("OK");
+                  } catch (ClassNotFoundException | SQLException e) {
+                        e.printStackTrace();
+                  }
             }
 
 }
