@@ -1,8 +1,15 @@
 package vue;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import controller.wkf_decrypt;
 
-public class frm_auth extends JFrame{
+public class frm_auth extends JFrame implements ActionListener {
             private JPanel pan=new JPanel();
             private JFormattedTextField login=new JFormattedTextField();
             private JFormattedTextField password=new JFormattedTextField();
@@ -10,6 +17,8 @@ public class frm_auth extends JFrame{
             private JLabel LPassword=new JLabel("Mot de passe");
             private JLabel titre=new JLabel("<html>Mad Max<br></html>");
             private JButton log=new JButton("S'authentifier");
+
+            Boolean test=false;
 
             public frm_auth(){
                   this.setTitle("Mad Max");
@@ -28,7 +37,7 @@ public class frm_auth extends JFrame{
 
                   password.setPreferredSize(new Dimension(100,30));
 
-                  Font fTitre=new Font("Ariel",Font.BOLD,50);
+                  Font fTitre=new Font("Arial",Font.BOLD,50);
 
                   titre.setFont(fTitre);
 
@@ -39,6 +48,7 @@ public class frm_auth extends JFrame{
                   centre.add(password);
 
                   btn.add(log);
+                  log.addActionListener(this);
 
 
                   pan.add(top,BorderLayout.NORTH);
@@ -46,6 +56,41 @@ public class frm_auth extends JFrame{
                   pan.add(btn, BorderLayout.SOUTH);
                   this.setContentPane(pan);
                   this.setVisible(true);
+
+
+            }
+
+            public String getLogin(){
+                  return login.getText();
+            }
+            public String getPassword(){
+                  return password.getText();
+            }
+
+            public void actionPerformed(ActionEvent arg0){
+                  wkf_decrypt contro=new wkf_decrypt();
+                  if(contro.pcs_decrypter(getLogin(), getPassword())){
+                        test=true;
+                  }
+            }
+            public Boolean getTest(){
+                  return test;
+            }
+
+            public static void connectionDB(){
+                  try{
+                        Class.forName("com.mysql.jdbc.Driver");
+
+                        String url="jdbc:mysql://localhost:3306/RPG";
+                        String user="rekiha";
+                        String pass="Ihgsv5358";
+
+                        Connection con= DriverManager.getConnection(url,user,pass);
+
+                        System.out.println("OK");
+                  } catch (ClassNotFoundException | SQLException e) {
+                        e.printStackTrace();
+                  }
             }
 
 }
