@@ -10,6 +10,7 @@ import java.sql.SQLException;
 
 import controller.wkf_cpte;
 import controller.wkf_decrypt;
+import jdk.nashorn.internal.scripts.JO;
 
 public class frm_auth extends JFrame implements ActionListener {
             private JPanel pan=new JPanel();
@@ -83,22 +84,6 @@ public class frm_auth extends JFrame implements ActionListener {
 
             public boolean getTest(){
                   return this.test;
-            }
-
-            public static void connectionDB(){
-                  try{
-                        Class.forName("com.mysql.jdbc.Driver");
-
-                        String url="jdbc:mysql://localhost:3306/RPG";
-                        String user="rekiha";
-                        String pass="Ihgsv5358";
-
-                        Connection con= DriverManager.getConnection(url,user,pass);
-
-                        System.out.println("OK");
-                  } catch (ClassNotFoundException | SQLException e) {
-                        e.printStackTrace();
-                  }
             }
 
 
