@@ -57,7 +57,15 @@ public class frm_auth extends JFrame implements ActionListener {
                   this.setContentPane(pan);
                   this.setVisible(true);
 
+            }
 
+            public void actionPerformed(ActionEvent e){
+                  wkf_decrypt contro=new wkf_decrypt();
+                  if(contro.pcs_decrypter(getLogin(), getPassword())){
+                        test=true;
+                        this.dispose();
+
+                  }
             }
 
             public String getLogin(){
@@ -67,12 +75,7 @@ public class frm_auth extends JFrame implements ActionListener {
                   return password.getText();
             }
 
-            public void actionPerformed(ActionEvent arg0){
-                  wkf_decrypt contro=new wkf_decrypt();
-                  if(contro.pcs_decrypter(getLogin(), getPassword())){
-                        test=true;
-                  }
-            }
+
             public Boolean getTest(){
                   return test;
             }
@@ -92,6 +95,7 @@ public class frm_auth extends JFrame implements ActionListener {
                         e.printStackTrace();
                   }
             }
+
 
 }
 
