@@ -5,7 +5,7 @@ import java.awt.*;
 public class frm_auth extends JFrame{
             private JPanel pan=new JPanel();
             private JFormattedTextField login=new JFormattedTextField();
-            private JFormattedTextField password=new JFormattedTextField
+            private JFormattedTextField password=new JFormattedTextField();
             private JLabel Llogin=new JLabel("Identifiant");
             private JLabel LPassword=new JLabel("Mot de passe");
             private JLabel titre=new JLabel("<html>Mad Max<br></html>");
