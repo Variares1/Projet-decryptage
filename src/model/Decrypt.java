@@ -1,9 +1,9 @@
 package model;
 
 public class Decrypt {
-    String decrypt(String data, String keyString){
+    public String decrypt(String data, String keyString){
         int spos = 0;
-        byte [] output = null;
+        byte [] output;
         String out = "";
         try{
             byte[] key = keyString.getBytes("UTF-8");
