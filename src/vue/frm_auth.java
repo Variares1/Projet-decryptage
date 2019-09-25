@@ -7,6 +7,8 @@ import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
+import controller.wkf_cpte;
 import controller.wkf_decrypt;
 
 public class frm_auth extends JFrame implements ActionListener {
@@ -17,8 +19,9 @@ public class frm_auth extends JFrame implements ActionListener {
             private JLabel LPassword=new JLabel("Mot de passe");
             private JLabel titre=new JLabel("<html>Mad Max<br></html>");
             private JButton log=new JButton("S'authentifier");
+            private JOptionPane warning=new JOptionPane();
 
-            Boolean test=false;
+            boolean test=false;
 
             public frm_auth(){
                   this.setTitle("Mad Max");
@@ -60,12 +63,14 @@ public class frm_auth extends JFrame implements ActionListener {
             }
 
             public void actionPerformed(ActionEvent e){
-                  wkf_decrypt contro=new wkf_decrypt();
-                  if(contro.pcs_decrypter(getLogin(), getPassword())){
-                        test=true;
+                  wkf_cpte contro=new wkf_cpte();
+                  if(contro.pcs_authentifier(getLogin(), getPassword())){
+                        this.test=true;
                         this.dispose();
+                        new frm_decrypt();
 
                   }
+                  else {warning.showMessageDialog(null,"Identifiqnt ou mot passe incorect","Erreur",JOptionPane.ERROR_MESSAGE);}
             }
 
             public String getLogin(){
@@ -76,8 +81,8 @@ public class frm_auth extends JFrame implements ActionListener {
             }
 
 
-            public Boolean getTest(){
-                  return test;
+            public boolean getTest(){
+                  return this.test;
             }
 
             public static void connectionDB(){

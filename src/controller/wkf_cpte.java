@@ -16,7 +16,6 @@ public class wkf_cpte {
         }catch (SQLException e){
             System.out.println("error sql " + e);
         }
-
         return false;
     }
 }
