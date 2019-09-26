@@ -1,21 +1,24 @@
 package model;
 
+import java.nio.charset.StandardCharsets;
+
 public class Decrypt {
-    public String decrypt(String data, String keyString){
+    public String decrypt(final String data, final String keyString){
         int spos = 0;
-        byte [] output;
+        char/*byte*/ [] output;
         String out = "";
         try{
-            byte[] key = keyString.getBytes("UTF-8");
-            output=(new sun.misc.BASE64Decoder().decodeBuffer(data));
+            /*byte*/char[] key = keyString.toCharArray()/*.getBytes(StandardCharsets.UTF_8)*/;
+            System.out.println(key);
+            output=/*(new sun.misc.BASE64Decoder().decodeBuffer(data))*/data.toCharArray();
             for (int pos = 0; pos < output.length; ++pos) {
-                output[pos] = (byte) (output[pos] ^ key[spos]);
+                output[pos] = (/*byte*/char) (output[pos] ^ key[spos]);
                 ++spos;
                 if (spos >= key.length) {
                     spos = 0;
                 }
             }
-            out = new String(output, "UTF-8");
+            out = new String(output/*, StandardCharsets.UTF_8*/);
         }catch(Exception e){
             System.out.println("error" + e);
         }

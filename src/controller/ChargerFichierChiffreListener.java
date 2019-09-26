@@ -23,6 +23,7 @@ public class ChargerFichierChiffreListener implements ActionListener {
                   } catch (IOException ex) {
                         ex.printStackTrace();
                   }
+                  //System.out.println(dialogue.getSelectedFile());
                   rslt=dialogue.getSelectedFile().toString();
                   sortie.close();
             }

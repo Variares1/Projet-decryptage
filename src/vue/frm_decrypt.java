@@ -20,7 +20,8 @@ public class frm_decrypt extends JFrame implements ActionListener{
       private JButton chargerFichierChiffre=new JButton("Charger le fichier crypter");
       private JButton identifierFichierDest=new JButton("Identifier le fichier de destination");
       private JPanel pan=new JPanel();
-
+      private ChargerFichierChiffreListener charger;
+      private IdentifierFichierDestListener identifier;
       final JFileChooser fc = new JFileChooser();
 
       public frm_decrypt() {
@@ -48,8 +49,10 @@ public class frm_decrypt extends JFrame implements ActionListener{
             pan.add(mid, BorderLayout.CENTER);
             pan.add(bot, BorderLayout.SOUTH);
 
-            chargerFichierChiffre.addActionListener(new ChargerFichierChiffreListener());
-            identifierFichierDest.addActionListener(new IdentifierFichierDestListener());
+            charger = new ChargerFichierChiffreListener();
+            identifier=new IdentifierFichierDestListener();
+            chargerFichierChiffre.addActionListener(charger);
+            identifierFichierDest.addActionListener(identifier);
             decrypt.addActionListener(this);
 
             this.setContentPane(pan);
@@ -58,9 +61,11 @@ public class frm_decrypt extends JFrame implements ActionListener{
             }
       @Override
       public void actionPerformed(ActionEvent e) {
-            ChargerFichierChiffreListener charger=new ChargerFichierChiffreListener();
-            IdentifierFichierDestListener identifier=new IdentifierFichierDestListener();
+//            ChargerFichierChiffreListener charger=new ChargerFichierChiffreListener();
+//            IdentifierFichierDestListener identifier=new IdentifierFichierDestListener();
             wkf_decrypt decrypt=new wkf_decrypt();
+            System.out.println(charger.getRslt());
+            System.out.println((identifier.getRslt()));
             decrypt.pcs_decrypter(charger.getRslt(),identifier.getRslt());
 
             ;
