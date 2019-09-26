@@ -8,6 +8,9 @@ import model.Map_Dic;
 import java.nio.charset.StandardCharsets;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,28 +23,31 @@ public class wkf_decrypt {
         String [] textSplit;
         String out_data="";
         char [] alphabet = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
-        int charMatch = 0;
         int nbGood = 0;
+        int nbGoodTotal = 0;
+        int [] value = new int[4];
+        String lettre = "";
         String source_data = file.getData(source_path);
-        String key1 = "awqpbira";
-        byte[] key = "awqpbira".getBytes(/*"UTF-8"*/StandardCharsets.UTF_8);
-        Pattern pattern = Pattern.compile("^[A-Za-z1-9.,?!;:@\\-]+$");
+        String key = "awqpmndf";
+        String key1;
+        Pattern pattern = Pattern.compile("^[A-Za-z0-9'.,]+$");
         Matcher matcher;
         do{
-            for(int j = 0; j<alphabet.length;j++){
-                for(int k=0; k<alphabet.length;k++){
-                    for(int l=0; l<alphabet.length;l++){
+            System.out.println(key);
                         for(int m=0;m<alphabet.length;m++){
-                            //key="awqpbira" /*+ alphabet[j] + alphabet[k] + alphabet[l] + alphabet[m]*/;
 
-                            System.out.println(key);
-                            out_data = decrypt.decrypt(source_data, key1/*"awqp" + alphabet[j] + alphabet[k] + alphabet[l] + alphabet[m]*/);
-                            charMatch = out_data.length() - out_data.replace(" ", "").length();
+                            key1=key + alphabet[m] + getChar(key.length());
+
+                            out_data = decrypt.decrypt(source_data, key1);
                             System.out.println(out_data);
                             textSplit = out_data.split(" ");
+                            nbGood = 0;
                             for(int i = 0 ; i<textSplit.length;i++){
                                 matcher = pattern.matcher(textSplit[i]);
                                 if(matcher.find()){
+                                    if(textSplit[i].contains(",") || textSplit[i].contains(".")){
+                                        textSplit[i].replaceAll("[,.]+", "");
+                                    }
                                     try(ResultSet rs = cad.GetRows(map_dic.selectWord(textSplit[i]),"")){
                                         if(rs.first()){
                                             nbGood+=1;
@@ -49,23 +55,39 @@ public class wkf_decrypt {
                                     }catch (SQLException e){
                                         e.printStackTrace();
                                     }
-                                    if(nbGood>=charMatch*0.8 && charMatch!=0){
-                                        j=100;
-                                        k=100;
-                                        l=100;
-                                        m=100;
-                                        i=textSplit.length+1;
-                                    }
                                 }
                             }
-                            System.out.println("key : " + key1 + " et nbgood = " +nbGood );
+                            if(nbGood>nbGoodTotal){
+                                nbGoodTotal = nbGood;
+                                lettre = String.valueOf(alphabet[m]);
+                            }
+                            if(nbGood==0){
+                                nbGoodTotal = 0;
+                                lettre = "a";
+                            }
+                            if (nbGood!=0) System.out.println("key : " + key1 + " et nbgood = " +nbGood + " et lettre = " + lettre);
                         }
-                    }
-                }
-            }
-        }while(nbGood<=charMatch*0.8);
-        file.setData(destination_path, out_data);
-        return true;
-    }
+                        value[11-key.length()]=nbGoodTotal;
+                        key += lettre;
+            System.out.println(key.length());
+        }while(key.length()!=12);
+        System.out.println(key);
+        file.setData(destination_path, decrypt.decrypt(source_data, key));
 
+        if (value[3]<value[2] && value[2]<value[1] && value[1]<value[0]) {
+            System.out.println("decrypté");
+            return true;
+        }
+        else{
+            System.out.println("non decrypté");
+            return false;
+        }
+    }
+    private String getChar(int length){
+        String endKey = "";
+        for(int i=length;i<11;i++){
+            endKey+="a";
+        }
+        return endKey;
+    }
 }
