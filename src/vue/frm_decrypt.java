@@ -22,6 +22,7 @@ public class frm_decrypt extends JFrame implements ActionListener{
       private JPanel pan=new JPanel();
       private ChargerFichierChiffreListener charger;
       private IdentifierFichierDestListener identifier;
+      private JOptionPane warning=new JOptionPane();
       final JFileChooser fc = new JFileChooser();
 
       public frm_decrypt() {
@@ -66,9 +67,13 @@ public class frm_decrypt extends JFrame implements ActionListener{
             wkf_decrypt decrypt=new wkf_decrypt();
             System.out.println(charger.getRslt());
             System.out.println((identifier.getRslt()));
-            decrypt.pcs_decrypter(charger.getRslt(),identifier.getRslt());
+            if(decrypt.pcs_decrypter(charger.getRslt(),identifier.getRslt())){
+                  warning.showMessageDialog(null,"Fichier décryter","Félicitation",JOptionPane.INFORMATION_MESSAGE);
+            }
+            else{
+                  warning.showMessageDialog(null,"Fichier non décryter","Warning",JOptionPane.WARNING_MESSAGE);
+            }
 
-            ;
       }
 }
 
