@@ -5,12 +5,8 @@ import model.Decrypt;
 import model.Files;
 import model.Map_Dic;
 
-import java.nio.charset.StandardCharsets;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,7 +42,7 @@ public class wkf_decrypt {
                                 matcher = pattern.matcher(textSplit[i]);
                                 if(matcher.find()){
                                     if(textSplit[i].contains(",") || textSplit[i].contains(".")){
-                                        textSplit[i].replaceAll("[,.]+", "");
+                                        textSplit[i] = textSplit[i].replaceAll("[,.]+", "");
                                     }
                                     try(ResultSet rs = cad.GetRows(map_dic.selectWord(textSplit[i]),"")){
                                         if(rs.first()){
@@ -65,7 +61,7 @@ public class wkf_decrypt {
                                 nbGoodTotal = 0;
                                 lettre = "a";
                             }
-                            if (nbGood!=0) System.out.println("key : " + key1 + " et nbgood = " +nbGood + " et lettre = " + lettre);
+                            if (nbGood!=0) System.out.println("lettre = " + lettre);
                         }
                         value[11-key.length()]=nbGoodTotal;
                         key += lettre;
@@ -75,11 +71,9 @@ public class wkf_decrypt {
         file.setData(destination_path, decrypt.decrypt(source_data, key));
 
         if (value[3]<value[2] && value[2]<value[1] && value[1]<value[0]) {
-            System.out.println("decrypté");
             return true;
         }
         else{
-            System.out.println("non decrypté");
             return false;
         }
     }

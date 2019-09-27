@@ -15,7 +15,7 @@ public class CAD {
             System.out.println("sql error " + e);
         }
     }
-    public /*DataSet*/ResultSet GetRows(String rq_sql, String resultSetName){
+    public ResultSet GetRows(String rq_sql, String resultSetName){
         ResultSet rs = null;
         if(this.conn != null){
             try{

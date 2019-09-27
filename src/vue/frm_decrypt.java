@@ -8,10 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 
 public class frm_decrypt extends JFrame implements ActionListener{
 
@@ -62,8 +58,6 @@ public class frm_decrypt extends JFrame implements ActionListener{
             }
       @Override
       public void actionPerformed(ActionEvent e) {
-//            ChargerFichierChiffreListener charger=new ChargerFichierChiffreListener();
-//            IdentifierFichierDestListener identifier=new IdentifierFichierDestListener();
             wkf_decrypt decrypt=new wkf_decrypt();
             System.out.println(charger.getRslt());
             System.out.println((identifier.getRslt()));
